@@ -47,8 +47,13 @@ if (Meteor.isClient) {
 			var selectedProduct = Session.get('selectedProduct');
 			console.log(selectedProduct);
 		},
-		"submit .quantity-field": function() {
-			
+		"keydown .quantity-field": function(event) {
+			var newQuantity = event.target.value;
+			console.log(newQuantity);
+			var self = this;
+			self.value = newQuantity;
+			Items.update(this._id, {$set:{qtyInStock: newQuantity}});
+			console.log('updated');
 		}
 	});
 }

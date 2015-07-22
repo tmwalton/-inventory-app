@@ -1,5 +1,15 @@
 Items = new Mongo.Collection("items");
 
+if (Meteor.isServer) {
+	Meteor.startup(function() {
+		return Meteor.methods({
+			removeAllItems: function() {
+				return Items.remove({});
+			}
+		});
+	});
+}
+
 if (Meteor.isClient) {
 	
 	Template.table.helpers({

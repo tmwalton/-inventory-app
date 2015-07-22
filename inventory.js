@@ -58,12 +58,14 @@ if (Meteor.isClient) {
 			console.log(selectedProduct);
 		},
 		"keydown .quantity-field": function(event) {
-			var newQuantity = event.target.value;
-			console.log(newQuantity);
-			var self = this;
-			self.value = newQuantity;
-			Items.update(this._id, {$set:{qtyInStock: newQuantity}});
-			console.log('updated');
+			if (event.keyCode == 13) {
+				var newQuantity = event.target.value;
+				console.log(newQuantity);
+				var self = this;
+				self.value = newQuantity;
+				Items.update(this._id, {$set:{qtyInStock: newQuantity}});
+				console.log('updated');
+			}
 		}
 	});
 }

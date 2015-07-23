@@ -1,7 +1,6 @@
 <head>
   <title>inventory</title>
 </head>
-
 <body>
 	<div class="container">
 		<header>
@@ -9,11 +8,9 @@
 		</header>
 		
 		{{> table}}
-
+		
 	</div>
 </body>
-
-
 
 <template name="item">
 	<td>{{product}}</td>
@@ -31,30 +28,21 @@
 			<label>Product Name</label>
 			<input type="text" name="product">
 		</div>
-		
 		<div class="form-group">
 			<label>SKU</label>
 			<input type="text" name="sku">
 		</div>
-		
 		<div class="form-group">
 			<label>Raw Cost</label>
 			<input type="text" name="raw_cost">
 		</div>
-		
 		<div class="form-group">
 			<label>Landed Cost</label>
 			<input type="text" name="landed_cost">
 		</div>
-		
 		<div class="form-group">
 			<label>Quantity In Stock</label>
 			<input type="text" name="qty_in_stock">
-		</div>
-		
-		<div class="form-group">
-			<label>Total Landed Value In Stock</label>
-			<input type="text" name="total_landed_value_in_stock">
 		</div>
 		<button type="submit" class="btn btn-default add-product">Add Product</button>
 	</form>

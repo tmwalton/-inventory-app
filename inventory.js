@@ -68,7 +68,7 @@ if (Meteor.isClient) {
 				var self = this;
 				self.value = newQuantity;
 				
-				var newValue = "$" + cost * newQuantity + ".00"; // Move currency formatting logic to onRendered function
+				var newValue = "$" + cost * newQuantity + ".00"; // Move currency formatting logic to onRendered
 				
 				Items.update(this._id, {$set:{qtyInStock: newQuantity}});
 				Items.update(this._id, {$set:{totalLandedValueInStock: newValue}});

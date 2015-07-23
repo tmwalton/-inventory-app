@@ -29,7 +29,8 @@ if (Meteor.isClient) {
 			var raw_cost = event.target.raw_cost.value;
 			var landed_cost = event.target.landed_cost.value;
 			var qty_in_stock = event.target.qty_in_stock.value;
-			var total_landed_value_in_stock = qty_in_stock * landed_cost.toFixed(2);
+			var total_landed_value_in_stock = (qty_in_stock * landed_cost).toFixed(2);
+			console.log(parseFloat(total_landed_value_in_stock));
 			
 			Items.insert({
 				product: product,
@@ -65,7 +66,6 @@ if (Meteor.isClient) {
 			
 			var productId = this._id;
 			Session.set('selectedProduct', productId);
-			//var cost = Items.find({"_id": this._id}, {fields: {'landedCost':1, '_id':0}}).fetch();
 			var cost = Items.findOne({'_id':this._id}, {'landedCost': 1}).landedCost;
 			
 			if (event.keyCode == 13) {
@@ -73,7 +73,7 @@ if (Meteor.isClient) {
 				var self = this;
 				self.value = newQuantity;
 				
-				var newValue = cost * newQuantity; // Move currency formatting logic to onRendered
+				var newValue = (cost * newQuantity).toFixed(2);
 				
 				Items.update(this._id, {$set:{qtyInStock: newQuantity}});
 				Items.update(this._id, {$set:{totalLandedValueInStock: newValue}});
@@ -81,10 +81,5 @@ if (Meteor.isClient) {
 			}
 		}
 	});
-	
-	//Template.table.onRendered({
-		// Create function to format table cells for currency on rendering so 
-		// as not to pollute data
-		//});
 }
 

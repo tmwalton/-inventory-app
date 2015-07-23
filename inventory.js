@@ -57,7 +57,7 @@ if (Meteor.isClient) {
 		},
 		"click .remove-product": function() {
 			var productId = this._id;
-			var remove = confirm("delete this product?");
+			var remove = confirm("delete this product?"); // Switch to bootstrap confirmation popup later
 			if (remove == true) {
 			Items.remove(productId);
 			};

@@ -55,6 +55,11 @@ if (Meteor.isClient) {
 			Session.set('selectedProduct', productId);
 			var selectedProduct = Session.get('selectedProduct');
 		},
+		"click .remove-product": function() {
+			console.log("Remove Button");
+			var productId = this._id;
+			Items.remove(productId);
+		},
 		
 		"keydown .quantity-field": function(event) {
 			

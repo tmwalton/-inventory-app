@@ -30,7 +30,6 @@ if (Meteor.isClient) {
 			var landed_cost = event.target.landed_cost.value;
 			var qty_in_stock = event.target.qty_in_stock.value;
 			var total_landed_value_in_stock = (qty_in_stock * landed_cost).toFixed(2);
-			console.log(parseFloat(total_landed_value_in_stock));
 			
 			Items.insert({
 				product: product,
@@ -57,9 +56,11 @@ if (Meteor.isClient) {
 			var selectedProduct = Session.get('selectedProduct');
 		},
 		"click .remove-product": function() {
-			console.log("Remove Button");
 			var productId = this._id;
+			var remove = confirm("delete this product?");
+			if (remove == true) {
 			Items.remove(productId);
+			};
 		},
 		
 		"keydown .quantity-field": function(event) {

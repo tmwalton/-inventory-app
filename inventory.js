@@ -29,7 +29,7 @@ if (Meteor.isClient) {
 			var raw_cost = event.target.raw_cost.value;
 			var landed_cost = event.target.landed_cost.value;
 			var qty_in_stock = event.target.qty_in_stock.value;
-			var total_landed_value_in_stock = qty_in_stock * landed_cost;
+			var total_landed_value_in_stock = qty_in_stock * landed_cost.toFixed(2);
 			
 			Items.insert({
 				product: product,
@@ -73,7 +73,7 @@ if (Meteor.isClient) {
 				var self = this;
 				self.value = newQuantity;
 				
-				var newValue = "$" + cost * newQuantity + ".00"; // Move currency formatting logic to onRendered
+				var newValue = cost * newQuantity; // Move currency formatting logic to onRendered
 				
 				Items.update(this._id, {$set:{qtyInStock: newQuantity}});
 				Items.update(this._id, {$set:{totalLandedValueInStock: newValue}});

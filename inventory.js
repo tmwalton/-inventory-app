@@ -77,9 +77,9 @@ if (Meteor.isClient) {
 		}
 	});
 	
-	Template.table.onRendered({
+	//Template.table.onRendered({
 		// Create function to format table cells for currency on rendering so 
 		// as not to pollute data
-	});
+		//});
 }
 

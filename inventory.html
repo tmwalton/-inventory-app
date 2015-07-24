@@ -6,9 +6,7 @@
 		<header>
 			<h1>QA Lab - Inventory</h1>
 		</header>
-		
 		{{> table}}
-		
 	</div>
 </body>
 
@@ -64,10 +62,11 @@
 			{{/each}}
 		</table>
 	</div>
-	
+	{{> export_csv}}
 	{{> new_product}}
-	
 </template>
 
-
+<template name="export_csv">
+	<button type="button" class="btn btn-default export-csv">CSV</button>
+</template>
 

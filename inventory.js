@@ -5,7 +5,8 @@ if (Meteor.isServer) {
 		return Meteor.methods({
 			removeAllItems: function() {
 				return Items.remove({});
-			}
+			},
+			// Add exportData method here
 		});
 	});
 }
@@ -80,6 +81,15 @@ if (Meteor.isClient) {
 				Items.update(this._id, {$set:{totalLandedValueInStock: newValue}});
 				console.log('updated');
 			}
+		}
+	});
+	
+	Template.export_csv.events({
+		"click .export-csv": function() {
+			var data = Items.find().fetch();
+			var csvData = json2csv(data);
+			var blob = new Blob([csvData], {type: "text/csv;charset=utf-8"});
+			saveAs(blob, "inventory.csv");
 		}
 	});
 }

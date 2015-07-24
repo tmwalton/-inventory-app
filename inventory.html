@@ -8,8 +8,11 @@
 		</header>
 		
 		{{> table}}
+
 		
 	</div>
+	
+
 </body>
 
 <template name="item">
@@ -64,10 +67,11 @@
 			{{/each}}
 		</table>
 	</div>
-	
+	{{> export_csv}}
 	{{> new_product}}
-	
 </template>
 
-
+<template name="export_csv">
+	<button type="button" class="btn btn-default export-csv">CSV</button>
+</template>
 

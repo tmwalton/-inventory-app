@@ -9,3 +9,10 @@ autopublish
 insecure
 bootstrap
 workman:meteor-editable
+meteorhacks:npm
+
+
+npm-container
+pfafman:filesaver
+axw:json2csv
+harrison:papa-parse

@@ -86,8 +86,8 @@ if (Meteor.isClient) {
 	
 	Template.export_csv.events({
 		"click .export-csv": function() {
-			var data = Items.find().fetch();
-			var csvData = json2csv(data);
+			var data = Items.find({}, {fields: {'createdAt':0, '_id':0}}).fetch();
+			var csvData = "Product, SKU#, Raw Cost, Landed Cost, Qty In Stock, Total Landed Value In Stock \n" + json2csv(data);
 			var blob = new Blob([csvData], {type: "text/csv;charset=utf-8"});
 			saveAs(blob, "inventory.csv");
 		}

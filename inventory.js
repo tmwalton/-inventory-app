@@ -1,37 +1,50 @@
 Items = new Mongo.Collection("items");
 
 if (Meteor.isServer) {
+	var fs = Npm.require('fs');
+
 	Meteor.startup(function() {
 		return Meteor.methods({
 			removeAllItems: function() {
 				return Items.remove({});
 			},
-			// Add exportData method here
+			saveFile: function() {
+				 var data = Items.find({}, {fields: {'createdAt':0, '_id':0}}).fetch();
+				 var csvData = "Product, SKU#, Raw Cost, Landed Cost, Qty In Stock, Total Landed Value In Stock \n" + json2csv(data);
+				 // Write the file to the server here
+				 fs.writeFile("new_inventory.csv", csvData, function (error) {
+					 if (error) {
+						 return console.log("error");
+					 }
+					 console.log("File was saved");
+				 });
+			}
 		});
 	});
 }
 
+
 if (Meteor.isClient) {
-	
+
 	Template.table.helpers({
 		items: function() {
 			return Items.find({});
 		}
 	});
-	
+
 	Template.new_product.events({
-		
+
 		"submit form": function (event, template) {
 			// Prevent default browser form submit
 			event.preventDefault();
-			
+
 			var product = event.target.product.value;
 			var sku = event.target.sku.value;
 			var raw_cost = event.target.raw_cost.value;
 			var landed_cost = event.target.landed_cost.value;
 			var qty_in_stock = event.target.qty_in_stock.value;
 			var total_landed_value_in_stock = (qty_in_stock * landed_cost).toFixed(2);
-			
+
 			Items.insert({
 				product: product,
 				sku: sku,
@@ -41,7 +54,7 @@ if (Meteor.isClient) {
 				totalLandedValueInStock: total_landed_value_in_stock,
 				createdAt: new Date()
 			});
-			
+
 			event.target.product.value = "";
 			event.target.sku.value = "";
 			event.target.raw_cost.value = "";
@@ -49,7 +62,7 @@ if (Meteor.isClient) {
 			event.target.qty_in_stock.value = "";
 		}
 	});
-	
+
 	Template.table.events({
 		"click .item": function() {
 			var productId = this._id;
@@ -63,27 +76,27 @@ if (Meteor.isClient) {
 			Items.remove(productId);
 			};
 		},
-		
+
 		"keydown .quantity-field": function(event) {
-			
+
 			var productId = this._id;
 			Session.set('selectedProduct', productId);
 			var cost = Items.findOne({'_id':this._id}, {'landedCost': 1}).landedCost;
-			
+
 			if (event.keyCode == 13) {
 				var newQuantity = event.target.value;
 				var self = this;
 				self.value = newQuantity;
-				
+
 				var newValue = (cost * newQuantity).toFixed(2);
-				
+
 				Items.update(this._id, {$set:{qtyInStock: newQuantity}});
 				Items.update(this._id, {$set:{totalLandedValueInStock: newValue}});
 				console.log('updated');
 			}
 		}
 	});
-	
+
 	Template.export_csv.events({
 		"click .export-csv": function() {
 			var data = Items.find({}, {fields: {'createdAt':0, '_id':0}}).fetch();
@@ -93,4 +106,3 @@ if (Meteor.isClient) {
 		}
 	});
 }
-

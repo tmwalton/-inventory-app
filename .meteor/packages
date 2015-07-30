@@ -16,3 +16,4 @@ npm-container
 pfafman:filesaver
 axw:json2csv
 harrison:papa-parse
+percolate:synced-cron

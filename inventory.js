@@ -2,6 +2,7 @@ Items = new Mongo.Collection("items");
 
 if (Meteor.isServer) {
 	var fs = Npm.require('fs');
+	var path =
 
 	Meteor.startup(function() {
 		return Meteor.methods({
@@ -60,6 +61,8 @@ if (Meteor.isClient) {
 			event.target.raw_cost.value = "";
 			event.target.landed_cost.value = "";
 			event.target.qty_in_stock.value = "";
+
+			Meteor.call('saveFile');
 		}
 	});
 
@@ -74,6 +77,7 @@ if (Meteor.isClient) {
 			var remove = confirm("delete this product?"); // Switch to bootstrap confirmation popup later
 			if (remove == true) {
 			Items.remove(productId);
+			Meteor.call('saveFile');
 			};
 		},
 
@@ -92,6 +96,7 @@ if (Meteor.isClient) {
 
 				Items.update(this._id, {$set:{qtyInStock: newQuantity}});
 				Items.update(this._id, {$set:{totalLandedValueInStock: newValue}});
+				Meteor.call('saveFile');
 				console.log('updated');
 			}
 		}

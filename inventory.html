@@ -2,13 +2,22 @@
   <title>inventory</title>
 </head>
 <body>
+
+
+</body>
+
+<template name="login">
+	<div class="text-center" id="login">{{> loginButtons}}</div>
+</template>
+
+<template name="inventory">
 	<div class="container">
 		<header>
-			<h1>QA Lab - Inventory</h1>
+			<h1>QA Lab - Inventory</h1><button type="button" class="btn btn-default logout">Logout</button>
 		</header>
 		{{> table}}
 	</div>
-</body>
+</template>
 
 <template name="item">
 	<td><button type="button" class="btn btn-default remove-product">Remove</button></td>
@@ -69,4 +78,3 @@
 <template name="export_csv">
 	<button type="button" class="btn btn-default export-csv">CSV</button>
 </template>
-

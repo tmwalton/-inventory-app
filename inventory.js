@@ -1,5 +1,11 @@
 Items = new Mongo.Collection("items");
 
+Router.route('/inventory');
+
+Router.route('/', function() {
+	this.render('login');
+});
+
 if (Meteor.isServer) {
 	var fs = Npm.require('fs');
 	var path =
@@ -26,6 +32,15 @@ if (Meteor.isServer) {
 
 
 if (Meteor.isClient) {
+
+	Router.onBeforeAction(function() {
+		if(!Meteor.userId()) {
+			this.render('login');
+		} else {
+			this.render('inventory');
+		}
+	});
+
 
 	Template.table.helpers({
 		items: function() {
@@ -108,6 +123,12 @@ if (Meteor.isClient) {
 			var csvData = "Product, SKU#, Raw Cost, Landed Cost, Qty In Stock, Total Landed Value In Stock \n" + json2csv(data);
 			var blob = new Blob([csvData], {type: "text/csv;charset=utf-8"});
 			saveAs(blob, "inventory.csv");
+		}
+	});
+
+	Template.inventory.events({
+		"click .logout": function() {
+			Meteor.logout();
 		}
 	});
 }

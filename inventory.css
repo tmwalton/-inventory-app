@@ -1,6 +1,10 @@
 /* CSS declarations go here */
 #qty {
 	width: 25%;
-	
-	
+}
+
+#login {
+	float: left;
+	margin-top: 100px;
+	margin-left: 41%;
 }

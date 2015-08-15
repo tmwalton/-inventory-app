@@ -19,3 +19,4 @@ harrison:papa-parse
 percolate:synced-cron
 accounts-ui
 accounts-password
+iron:router
